@@ -3,11 +3,12 @@ import styled from "styled-components";
 import { lightTheme, darkTheme } from "../themes";
 import NightsStayIcon from "@material-ui/icons/NightsStay";
 import Brightness4OutlinedIcon from "@material-ui/icons/Brightness4Outlined";
+import ThemeName from "./ThemeName";
 
 const ThemeButton = styled.button`
-display: flex;
-align-items: center;  
-border: none;
+  display: flex;
+  align-items: center;
+  border: none;
   color: ${(props) => props.theme.textColor};
   background-color: ${(props) => props.theme.backgroundElements};
   &:hover {
@@ -24,8 +25,16 @@ const ThemeChanger = ({ currentTheme, changeTheme }) => {
 
   return (
     <ThemeButton onClick={toggleTheme}>
-      {currentTheme === lightTheme ? <NightsStayIcon /> : <Brightness4OutlinedIcon />}
-      {currentTheme === lightTheme ? 'Dark Mode' : 'Light Mode'}
+      {currentTheme === lightTheme ? (
+        <NightsStayIcon />
+      ) : (
+        <Brightness4OutlinedIcon />
+      )}
+      {currentTheme === lightTheme ? (
+        <ThemeName name={"Dark Mode"} />
+      ) : (
+        <ThemeName name={"Light Mode"} />
+      )}
     </ThemeButton>
   );
 };

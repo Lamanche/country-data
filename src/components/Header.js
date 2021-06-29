@@ -5,23 +5,28 @@ import ThemeChanger from "./ThemeChanger";
 
 const Bar = styled(AppBar)`
   height: 5rem;
+  padding-left: ${(props) => props.theme.xl.padding};
+  padding-right: ${(props) => props.theme.xl.padding};
   display: flex;
   flex-direction: row !important;
   justify-content: space-between;
   align-items: center;
-  color: red;
-  font-size: 1.5rem;
   color: ${(props) => props.theme.textColor} !important;
   &.MuiAppBar-colorPrimary {
     background-color: ${(props) => props.theme.backgroundElements} !important;
   }
 `;
 
+const Headline = styled.h1`
+  font-size: 1.5rem;
+  font-weight: 800;
+`;
+
 const Header = ({ currentTheme, changeTheme }) => {
   return (
     <div>
-      <Bar>
-        <div>Hehyjllo</div>
+      <Bar position="static">
+        <Headline>Where in the world?</Headline>
         <ThemeChanger currentTheme={currentTheme} changeTheme={changeTheme} />
       </Bar>
     </div>
