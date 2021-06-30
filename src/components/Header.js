@@ -25,7 +25,7 @@ const Headline = styled.h1`
 const Header = ({ currentTheme, changeTheme }) => {
   return (
     <div>
-      <Bar position="static">
+      <Bar position='static'>
         <Headline>Where in the world?</Headline>
         <ThemeChanger currentTheme={currentTheme} changeTheme={changeTheme} />
       </Bar>

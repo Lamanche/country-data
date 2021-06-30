@@ -1,14 +1,18 @@
 import { Card } from "@material-ui/core";
 import styled from "styled-components";
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 const Country = styled(Card)`
   width: 15rem;
   height: 19rem;
-  margin-bottom: 2.5rem;
+  margin: 0 0.2rem 2.5rem 0.2rem;
   background-color: ${(props) => props.theme.backgroundElements} !important;
   color: ${(props) => props.theme.textColor} !important;
-  `;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 const Flag = styled.img`
   height: 50%;
@@ -17,25 +21,32 @@ const Flag = styled.img`
 `;
 
 const Name = styled.h1`
-margin-left: 1rem;
-font-size: 1.05rem;
-font-weight: 800;
+  margin-left: 1rem;
+  font-size: 1.05rem;
+  font-weight: 800;
 `;
 
 const Detail = styled.p`
-margin: 0 0 .1rem 1rem;
-font-weight: 600;
-font-size: .9rem;
+  margin: 0 0 0.1rem 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
 `;
 
 const DetailData = styled.span`
-font-weight: 300;
+  font-weight: 300;
 `;
 
-const CountryCard = ({ country }) => {
+const CountryCard = ({ country, setCurrentCountry }) => {
+  const history = useHistory();
+
+  const toDetailPage = () => {
+    setCurrentCountry(country);
+    history.push(country.name);
+  };
+
   return (
-    <Country>
-      <Flag src={country.flag} alt={'flag'}></Flag>
+    <Country onClick={toDetailPage}>
+      <Flag src={country.flag} alt={"flag"}></Flag>
       <Name>{country.name}</Name>
       <Detail>
         Population: <DetailData>{country.population}</DetailData>
