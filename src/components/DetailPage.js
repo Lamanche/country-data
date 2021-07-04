@@ -12,27 +12,27 @@ const Container = styled.div`
   }
 `;
 
-const DetailPage = ({ error, setCurrentCountry }) => {
+const DetailPage = ({ error }) => {
   const location = useLocation();
-  const countries = useContext(CountriesContext)
-  const country = useContext(CurrentCountryContext);
+  const countries = useContext(CountriesContext);
+  const { currentCountry, setCurrentCountry } = useContext(
+    CurrentCountryContext
+  );
 
   useEffect(() => {
-    console.log(location);
-    const name = location.pathname.slice(1)
-    if (country.name !== name) {
-      const result = countries.find((country) => country.name.toLowerCase() === name.toLowerCase());
+    const name = location.pathname.slice(1);
+    if (currentCountry.name !== name) {
+      const result = countries.find(
+        (country) => country.name.toLowerCase() === name.toLowerCase()
+      );
       setCurrentCountry(result);
     }
-    
-    
-    
   }, [location]);
 
   return (
     <Container>
       <DetailContent
-        country={country}
+        country={currentCountry}
         error={error}
         setCurrentCountry={setCurrentCountry}
       />

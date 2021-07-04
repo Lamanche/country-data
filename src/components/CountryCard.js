@@ -1,7 +1,8 @@
 import { Card } from "@material-ui/core";
 import styled from "styled-components";
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { CurrentCountryContext } from "./CountriesContext";
 
 const Country = styled(Card)`
   width: 15rem;
@@ -36,7 +37,8 @@ const DetailData = styled.span`
   font-weight: 300;
 `;
 
-const CountryCard = ({ country, setCurrentCountry }) => {
+const CountryCard = ({ country }) => {
+  const { setCurrentCountry } = useContext(CurrentCountryContext);
   const history = useHistory();
 
   const toDetailPage = () => {

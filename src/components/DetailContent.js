@@ -19,8 +19,8 @@ const DataWrapper = styled.div`
 `;
 
 const Flag = styled.img`
-  width: 36rem;
-  height: auto;
+  width: 40rem;
+  height: 28rem;
 
   border: none;
 `;
@@ -28,7 +28,7 @@ const Flag = styled.img`
 const DetailWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 2rem 0 2rem 5rem;
+  padding: 2rem 0 2rem 7rem;
   justify-content: space-between;
 `;
 
@@ -36,27 +36,32 @@ const Container = styled.div`
   display: flex;
 `;
 
-const DetailLeft = styled.div``;
+const DetailLeft = styled.div`
+min-width: 20rem;  
+margin-right: 7rem;
+`;
 
 const DetailRight = styled.div``;
 
 const Name = styled.h1`
   margin-left: 1rem;
-  font-size: 1.7rem;
+  margin-bottom: 3rem;
+  font-size: 2.2rem;
   font-weight: 800;
 `;
 
 const Detail = styled.p`
-  margin: 0 0 0.1rem 1rem;
+  margin: 0 0 0.8rem 1rem;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
 `;
 
 const DetailData = styled.span`
+  margin-left: 0.2rem;
   font-weight: 300;
 `;
 
-const DetailContent = ({ country, error, setCurrentCountry }) => {
+const DetailContent = ({ country, error }) => {
   const history = useHistory();
   const [currencies, setCurrencies] = useState("");
 
@@ -119,10 +124,7 @@ const DetailContent = ({ country, error, setCurrentCountry }) => {
                 </DetailRight>
               </Container>
             </div>
-            <BorderCountries
-              borders={country?.borders}
-              setCurrentCountry={setCurrentCountry}
-            />
+            <BorderCountries borders={country?.borders} />
           </DetailWrapper>
         </DataWrapper>
       )}

@@ -21,8 +21,9 @@ const Container = styled.div`
     margin: 0 0.2rem 2.5rem 0.2rem;
     flex-grow: 0;*/
 
-const Main = ({ setCurrentCountry }) => {
+const Main = () => {
   const countries = useContext(CountriesContext);
+
   const [searchTerm, setSearchTerm] = useState("");
 
   return (
@@ -31,11 +32,7 @@ const Main = ({ setCurrentCountry }) => {
       {countries
         .filter((country) => country.name.toLowerCase().startsWith(searchTerm))
         .map((country) => (
-          <CountryCard
-            key={country.numericCode}
-            country={country}
-            setCurrentCountry={setCurrentCountry}
-          />
+          <CountryCard key={country.numericCode} country={country} />
         ))}
     </Container>
   );

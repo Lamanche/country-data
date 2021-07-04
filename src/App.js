@@ -55,22 +55,17 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CountriesContext.Provider value={countries}>
-        <CurrentCountryContext.Provider value={currentCountry}>
+        <CurrentCountryContext.Provider
+          value={{ currentCountry, setCurrentCountry }}
+        >
           <Container>
             <Header currentTheme={theme} changeTheme={setTheme} />
             <Switch>
               <Route exact path='/'>
-                {!countries ? (
-                  <Loading />
-                ) : (
-                  <Main setCurrentCountry={setCurrentCountry} />
-                )}
+                {!countries ? <Loading /> : <Main />}
               </Route>
               <Route path='/:country'>
-                <DetailPage
-                  error={error}
-                  setCurrentCountry={setCurrentCountry}
-                />
+                <DetailPage error={error} />
               </Route>
             </Switch>
           </Container>
