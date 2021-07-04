@@ -45,15 +45,15 @@ const DetailRight = styled.div``;
 
 const Name = styled.h1`
   margin-left: 1rem;
-  margin-bottom: 3rem;
-  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
   font-weight: 800;
 `;
 
 const Detail = styled.p`
-  margin: 0 0 0.8rem 1rem;
+  margin: 0 0 0.4rem 1rem;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1rem;
 `;
 
 const DetailData = styled.span`

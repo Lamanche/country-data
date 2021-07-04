@@ -18,7 +18,7 @@ const BorderWrapper = styled.div`
 const Detail = styled.p`
   margin: 0 0.5rem 0.1rem 1rem;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1rem;
 `;
 
 const BorderButton = styled(Button)`
