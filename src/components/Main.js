@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import CountryCard from "./CountryCard";
 import styled from "styled-components";
 import SearchCountries from "./SearchCountries";
+import { CountriesContext } from "./CountriesContext";
 
 const Container = styled.div`
   padding-left: ${(props) => props.theme.xl.padding};
@@ -20,9 +21,10 @@ const Container = styled.div`
     margin: 0 0.2rem 2.5rem 0.2rem;
     flex-grow: 0;*/
 
-const Main = ({ countries, setCurrentCountry }) => {
+const Main = ({ setCurrentCountry }) => {
+  const countries = useContext(CountriesContext);
   const [searchTerm, setSearchTerm] = useState("");
-  
+
   return (
     <Container>
       <SearchCountries searchTerm={setSearchTerm} />

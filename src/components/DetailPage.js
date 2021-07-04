@@ -1,7 +1,7 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { CountriesContext, CurrentCountryContext } from "./CountriesContext";
 import DetailContent from "./DetailContent";
 
 const Container = styled.div`
@@ -12,35 +12,30 @@ const Container = styled.div`
   }
 `;
 
-const DetailPage = ({ country }) => {
-  const [loading, setLoading] = useState(false);
-  const [currentCountry, setCurrentCountry] = useState(country);
-  const [error, setError] = useState(false);
-  const url = useParams();
-  const countryName = url.country;
-
-  const getCountry = async (name) => {
-    setLoading(true);
-    try {
-      const data = await axios(`https://restcountries.eu/rest/v2/name/${name}`);
-      setLoading(false);
-      setCurrentCountry(data.data[0]);
-    } catch (error) {
-      setError(true);
-      setLoading(false);
-    }
-  };
+const DetailPage = ({ error, setCurrentCountry }) => {
+  const location = useLocation();
+  const countries = useContext(CountriesContext)
+  const country = useContext(CurrentCountryContext);
 
   useEffect(() => {
-    console.log(country);
-    if (countryName !== country.name) {
-      getCountry(countryName);
+    console.log(location);
+    const name = location.pathname.slice(1)
+    if (country.name !== name) {
+      const result = countries.find((country) => country.name.toLowerCase() === name.toLowerCase());
+      setCurrentCountry(result);
     }
-  }, []);
+    
+    
+    
+  }, [location]);
 
   return (
     <Container>
-      <DetailContent country={currentCountry} error={error} loading={loading} />
+      <DetailContent
+        country={country}
+        error={error}
+        setCurrentCountry={setCurrentCountry}
+      />
     </Container>
   );
 };

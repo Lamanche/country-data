@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styled, { ThemeProvider } from "styled-components";
 import Loading from "./components/Loading";
 import Header from "./components/Header";
@@ -6,7 +7,11 @@ import { useEffect, useState } from "react";
 import Main from "./components/Main";
 import DetailPage from "./components/DetailPage";
 import axios from "axios";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
+import {
+  CountriesContext,
+  CurrentCountryContext,
+} from "./components/CountriesContext";
 
 const Container = styled.div`
   width: 100%;
@@ -16,19 +21,30 @@ const Container = styled.div`
 
 function App() {
   const [theme, setTheme] = useState(lightTheme);
-  const [loading, setLoading] = useState(false);
   const [countries, setCountries] = useState([]);
-  const [currentCountry, setCurrentCountry] = useState("");
+  const [currentCountry, setCurrentCountry] = useState({});
+  const [error, setError] = useState(false);
+
+  const location = useLocation();
 
   const getCountries = async () => {
-    setLoading(true);
     try {
       const data = await axios("https://restcountries.eu/rest/v2/all");
       setCountries(data.data);
-      setLoading(false);
+      if (location.pathname.length > 1) {
+        const countryName = location.pathname.slice(1);
+        const result = data.data.find(
+          (country) => country.name.toLowerCase() === countryName.toLowerCase()
+        );
+        if (!result) {
+          setError(true);
+        } else {
+          setCurrentCountry(result);
+        }
+      }
     } catch (error) {
       console.log(error);
-      setLoading(false);
+      setError(true);
     }
   };
 
@@ -38,26 +54,28 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Router>
-        <Container>
-          <Header currentTheme={theme} changeTheme={setTheme} />
-          <Switch>
-            <Route exact path='/'>
-              {loading ? (
-                <Loading />
-              ) : (
-                <Main
-                  countries={countries}
+      <CountriesContext.Provider value={countries}>
+        <CurrentCountryContext.Provider value={currentCountry}>
+          <Container>
+            <Header currentTheme={theme} changeTheme={setTheme} />
+            <Switch>
+              <Route exact path='/'>
+                {!countries ? (
+                  <Loading />
+                ) : (
+                  <Main setCurrentCountry={setCurrentCountry} />
+                )}
+              </Route>
+              <Route path='/:country'>
+                <DetailPage
+                  error={error}
                   setCurrentCountry={setCurrentCountry}
                 />
-              )}
-            </Route>
-            <Route path='/:country'>
-              <DetailPage country={currentCountry} />
-            </Route>
-          </Switch>
-        </Container>
-      </Router>
+              </Route>
+            </Switch>
+          </Container>
+        </CurrentCountryContext.Provider>
+      </CountriesContext.Provider>
     </ThemeProvider>
   );
 }
