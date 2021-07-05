@@ -12,17 +12,29 @@ const BackBtn = styled(Button)`
   padding-right: 1.9rem !important;
   background-color: ${(props) => props.theme.backgroundElements} !important;
   color: ${(props) => props.theme.textColor} !important;
+
+  @media (max-width: 425px) {
+    margin-bottom: 4rem !important;
+  }
 `;
 
 const DataWrapper = styled.div`
   display: flex;
+
+  @media (max-width: 425px) {
+    flex-direction: column;
+  }
 `;
 
 const Flag = styled.img`
   width: 40rem;
   height: 28rem;
-
   border: none;
+
+  @media (max-width: 425px) {
+    width: 100%;
+    height: auto;
+  }
 `;
 
 const DetailWrapper = styled.div`
@@ -30,18 +42,34 @@ const DetailWrapper = styled.div`
   flex-direction: column;
   padding: 2rem 0 2rem 7rem;
   justify-content: space-between;
+
+  @media (max-width: 425px) {
+    padding: 2rem 0 2rem 0rem;
+  }
 `;
 
 const Container = styled.div`
   display: flex;
+
+  @media (max-width: 425px) {
+    flex-direction: column;
+  }
 `;
 
 const DetailLeft = styled.div`
-min-width: 20rem;  
-margin-right: 7rem;
+  min-width: 20rem;
+  margin-right: 7rem;
+
+  @media (max-width: 425px) {
+    margin: 0 0 2.6rem 0;
+  }
 `;
 
-const DetailRight = styled.div``;
+const DetailRight = styled.div`
+@media (max-width: 425px) {
+  margin: 0 0 2.6rem 0;
+}
+`;
 
 const Name = styled.h1`
   margin-left: 1rem;

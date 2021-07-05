@@ -5,6 +5,9 @@ export const lightTheme = {
   xl: {
     padding: "4rem",
   },
+  s: {
+    padding: "2rem",
+  },
 };
 
 export const darkTheme = {
@@ -13,5 +16,8 @@ export const darkTheme = {
   backgroundElements: "hsl(209, 23%, 22%)",
   xl: {
     padding: "4rem",
+  },
+  s: {
+    padding: "2rem",
   },
 };

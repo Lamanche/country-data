@@ -10,6 +10,11 @@ const Container = styled.div`
   padding-top: 2.8rem;  
   color: ${(props) => props.theme.textColor} !important; 
   }
+
+  @media (max-width: 425px) {
+    padding-left: ${(props) => props.theme.s.padding};
+  padding-right: ${(props) => props.theme.s.padding};
+  }
 `;
 
 const DetailPage = ({ error }) => {

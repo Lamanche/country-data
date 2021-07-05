@@ -15,11 +15,20 @@ const Bar = styled(AppBar)`
   &.MuiAppBar-colorPrimary {
     background-color: ${(props) => props.theme.backgroundElements} !important;
   }
+
+  @media (max-width: 425px) {
+    padding-left: ${(props) => props.theme.s.padding};
+    padding-right: ${(props) => props.theme.s.padding};
+  }
 `;
 
 const Headline = styled.h1`
   font-size: 1.5rem;
   font-weight: 800;
+
+  @media (max-width: 425px) {
+    font-size: 1rem;
+  }
 `;
 
 const Header = ({ currentTheme, changeTheme }) => {

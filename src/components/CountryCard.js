@@ -13,6 +13,11 @@ const Country = styled(Card)`
   &:hover {
     cursor: pointer;
   }
+
+  @media (max-width: 425px) {
+    width: 18rem;
+  height: 22rem;
+  }
 `;
 
 const Flag = styled.img`

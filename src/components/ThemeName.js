@@ -6,14 +6,14 @@ const Name = styled.span`
   margin-left: 5px;
   font-family: Nunito Sans;
   font-weight: 600;
+
+  @media (max-width: 425px) {
+    font-size: 0.75rem;
+  }
 `;
 
 const ThemeName = (props) => {
-  return (
-    <Name>
-      {props.name}
-    </Name>
-  );
+  return <Name>{props.name}</Name>;
 };
 
 export default ThemeName;

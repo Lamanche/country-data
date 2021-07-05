@@ -7,6 +7,11 @@ import { CountriesContext, CurrentCountryContext } from "./CountriesContext";
 const Container = styled.div`
   display: flex;
   align-items: center;
+
+  @media (max-width: 425px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const BorderWrapper = styled.div`
@@ -19,6 +24,10 @@ const Detail = styled.p`
   margin: 0 0.5rem 0.1rem 1rem;
   font-weight: 600;
   font-size: 1rem;
+
+  @media (max-width: 425px) {
+    margin-bottom: 2rem;
+  }
 `;
 
 const BorderButton = styled(Button)`

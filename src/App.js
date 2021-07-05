@@ -2,6 +2,7 @@
 import styled, { ThemeProvider } from "styled-components";
 import Loading from "./components/Loading";
 import Header from "./components/Header";
+import useToggleTheme from "./functions/useToggleTheme";
 import { lightTheme } from "./themes";
 import { useEffect, useState } from "react";
 import Main from "./components/Main";
@@ -20,7 +21,7 @@ const Container = styled.div`
 `;
 
 function App() {
-  const [theme, setTheme] = useState(lightTheme);
+  const [theme, toggleTheme] = useToggleTheme();
   const [countries, setCountries] = useState([]);
   const [currentCountry, setCurrentCountry] = useState({});
   const [error, setError] = useState(false);
@@ -59,7 +60,7 @@ function App() {
           value={{ currentCountry, setCurrentCountry }}
         >
           <Container>
-            <Header currentTheme={theme} changeTheme={setTheme} />
+            <Header currentTheme={theme} changeTheme={toggleTheme} />
             <Switch>
               <Route exact path='/'>
                 {!countries ? <Loading /> : <Main />}

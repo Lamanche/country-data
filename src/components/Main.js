@@ -12,6 +12,13 @@ const Container = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;  
   }
+
+  @media (max-width: 425px) {
+    padding-left: ${(props) => props.theme.s.padding};
+  padding-right: ${(props) => props.theme.s.padding};
+  padding-top: 2rem;
+  justify-content: center;
+  }
 `;
 
 /*&:after {
