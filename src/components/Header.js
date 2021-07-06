@@ -16,7 +16,7 @@ const Bar = styled(AppBar)`
     background-color: ${(props) => props.theme.backgroundElements} !important;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 630px) {
     padding-left: ${(props) => props.theme.s.padding};
     padding-right: ${(props) => props.theme.s.padding};
   }
@@ -26,7 +26,7 @@ const Headline = styled.h1`
   font-size: 1.5rem;
   font-weight: 800;
 
-  @media (max-width: 425px) {
+  @media (max-width: 630px) {
     font-size: 1rem;
   }
 `;

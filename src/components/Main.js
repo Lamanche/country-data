@@ -13,11 +13,16 @@ const Container = styled.div`
   justify-content: space-between;  
   }
 
+  @media (max-width: 768px) {    
+    padding-top: 2rem;
+    justify-content: space-around;
+  }
+
   @media (max-width: 425px) {
     padding-left: ${(props) => props.theme.s.padding};
-  padding-right: ${(props) => props.theme.s.padding};
-  padding-top: 2rem;
-  justify-content: center;
+    padding-right: ${(props) => props.theme.s.padding};
+    padding-top: 2rem;
+    justify-content: center;
   }
 `;
 
@@ -30,14 +35,22 @@ const Container = styled.div`
 
 const Main = () => {
   const countries = useContext(CountriesContext);
-
   const [searchTerm, setSearchTerm] = useState("");
+  const [region, setRegion] = useState("");
 
   return (
     <Container>
-      <SearchCountries searchTerm={setSearchTerm} />
+      <SearchCountries
+        searchTerm={setSearchTerm}
+        region={region}
+        setRegion={setRegion}
+      />
       {countries
-        .filter((country) => country.name.toLowerCase().startsWith(searchTerm))
+        .filter(
+          (country) =>
+            country.name.toLowerCase().startsWith(searchTerm) &&
+            country.region.includes(region)
+        )
         .map((country) => (
           <CountryCard key={country.numericCode} country={country} />
         ))}

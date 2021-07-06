@@ -11,7 +11,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
 
-  @media (max-width: 425px) {
+  @media (max-width: 630px) {
     flex-direction: column;
   }
 `;
@@ -26,7 +26,7 @@ const SearchBackground = styled(Paper)`
   background-color: ${(props) => props.theme.backgroundElements} !important;
   color: ${(props) => props.theme.textColor} !important;
 
-  @media (max-width: 425px) {
+  @media (max-width: 630px) {
     width: 100%;
     margin-bottom: 2.5rem;
   }
@@ -45,10 +45,9 @@ const SelectBackground = styled(Paper)`
 const Form = styled(FormControl)`
   height: 3rem !important;
   min-width: 10rem !important;
-  
-  @media (max-width: 425px) {
+
+  @media (max-width: 630px) {
     width: 10rem;
-    
   }
 `;
 
@@ -70,7 +69,7 @@ const Selector = styled(Select)`
   }
   &.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
     border: none;
-    background-color: ${(props) => props.theme.backgroundElements} !important;
+    
   }
   &.MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
     border: none;
@@ -85,12 +84,16 @@ const Selector = styled(Select)`
     border: none
   }
   &.MuiOutlinedInput-input:-webkit-autofill {
-    border-radius: inherit;
+    border: none;
 `;
 
-const SearchCountries = ({ searchTerm }) => {
+const SearchCountries = ({ searchTerm, region, setRegion }) => {
   const search = (e) => {
     searchTerm(e.toLowerCase());
+  };
+
+  const searchRegion = (e) => {
+    setRegion(e.target.value);
   };
 
   return (
@@ -113,12 +116,15 @@ const SearchCountries = ({ searchTerm }) => {
             //open={open}
             //onClose={handleClose}
             //onOpen={handleOpen}
-            //value={age}
-            //onChange={handleChange}
+            value={region}
+            onChange={searchRegion}
           >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem value={""}>All</MenuItem>
+            <MenuItem value={"Africa"}>Africa</MenuItem>
+            <MenuItem value={"America"}>America</MenuItem>
+            <MenuItem value={"Asia"}>Asia</MenuItem>
+            <MenuItem value={"Europe"}>Europe</MenuItem>
+            <MenuItem value={"Oceania"}>Oceania</MenuItem>
           </Selector>
         </SelectBackground>
       </Form>

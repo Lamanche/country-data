@@ -3,7 +3,6 @@ import styled, { ThemeProvider } from "styled-components";
 import Loading from "./components/Loading";
 import Header from "./components/Header";
 import useToggleTheme from "./functions/useToggleTheme";
-import { lightTheme } from "./themes";
 import { useEffect, useState } from "react";
 import Main from "./components/Main";
 import DetailPage from "./components/DetailPage";

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
@@ -8,7 +8,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
 
-  @media (max-width: 425px) {
+  @media (max-width: 630px) {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -25,7 +25,7 @@ const Detail = styled.p`
   font-weight: 600;
   font-size: 1rem;
 
-  @media (max-width: 425px) {
+  @media (max-width: 630px) {
     margin-bottom: 2rem;
   }
 `;
@@ -44,25 +44,20 @@ const BorderCountries = ({ borders }) => {
   const history = useHistory();
   const countries = useContext(CountriesContext);
   const { setCurrentCountry } = useContext(CurrentCountryContext);
-  const [border, setBorder] = useState([]);
 
   const toDetailPage = (e) => {
     const code = e.target.textContent;
-    const result = countries.find((country) => country.alpha3Code === code);
+    const result = countries.find((country) => country.name === code);
     history.push(result.name);
     setCurrentCountry(result);
   };
-
-  useEffect(() => {
-    borders && setBorder(borders);
-  }, [borders]);
 
   return (
     <Container>
       <Detail>Border Countries: </Detail>
       <BorderWrapper>
-        {border &&
-          border.map((border) => (
+        {borders &&
+          borders.map((border) => (
             <BorderButton
               key={border}
               variant='contained'

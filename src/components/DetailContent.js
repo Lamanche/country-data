@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import Loading from "./Loading";
@@ -21,7 +21,7 @@ const BackBtn = styled(Button)`
 const DataWrapper = styled.div`
   display: flex;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     flex-direction: column;
   }
 `;
@@ -31,7 +31,7 @@ const Flag = styled.img`
   height: 28rem;
   border: none;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     width: 100%;
     height: auto;
   }
@@ -43,7 +43,7 @@ const DetailWrapper = styled.div`
   padding: 2rem 0 2rem 7rem;
   justify-content: space-between;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     padding: 2rem 0 2rem 0rem;
   }
 `;
@@ -51,7 +51,7 @@ const DetailWrapper = styled.div`
 const Container = styled.div`
   display: flex;
 
-  @media (max-width: 425px) {
+  @media (max-width: 630px) {
     flex-direction: column;
   }
 `;
@@ -60,15 +60,15 @@ const DetailLeft = styled.div`
   min-width: 20rem;
   margin-right: 7rem;
 
-  @media (max-width: 425px) {
+  @media (max-width: 1440px) {
     margin: 0 0 2.6rem 0;
   }
 `;
 
 const DetailRight = styled.div`
-@media (max-width: 425px) {
-  margin: 0 0 2.6rem 0;
-}
+  @media (max-width: 630x) {
+    margin: 0 0 2.6rem 0;
+  }
 `;
 
 const Name = styled.h1`
@@ -89,20 +89,12 @@ const DetailData = styled.span`
   font-weight: 300;
 `;
 
-const DetailContent = ({ country, error }) => {
+const DetailContent = ({ country, error, currencies, borders, languages }) => {
   const history = useHistory();
-  const [currencies, setCurrencies] = useState("");
 
   const goBack = () => {
     history.push("/");
   };
-
-  useEffect(() => {
-    let currencies = "";
-    country &&
-      country?.currencies?.forEach((c) => (currencies += c.name + ", "));
-    setCurrencies(currencies);
-  }, [country]);
 
   return (
     <>
@@ -147,12 +139,12 @@ const DetailContent = ({ country, error }) => {
                     Currencies: <DetailData>{currencies}</DetailData>
                   </Detail>
                   <Detail>
-                    Languages: <DetailData>{}</DetailData>
+                    Languages: <DetailData>{languages}</DetailData>
                   </Detail>
                 </DetailRight>
               </Container>
             </div>
-            <BorderCountries borders={country?.borders} />
+            <BorderCountries borders={borders} />
           </DetailWrapper>
         </DataWrapper>
       )}

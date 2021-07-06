@@ -1,6 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
+import trimString from "../functions/trimString";
+import useTranslateBorders from "../functions/useTranslateBorders";
 import { CountriesContext, CurrentCountryContext } from "./CountriesContext";
 import DetailContent from "./DetailContent";
 
@@ -11,9 +13,9 @@ const Container = styled.div`
   color: ${(props) => props.theme.textColor} !important; 
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 630px) {
     padding-left: ${(props) => props.theme.s.padding};
-  padding-right: ${(props) => props.theme.s.padding};
+    padding-right: ${(props) => props.theme.s.padding};
   }
 `;
 
@@ -23,6 +25,9 @@ const DetailPage = ({ error }) => {
   const { currentCountry, setCurrentCountry } = useContext(
     CurrentCountryContext
   );
+  const [currencies, setCurrencies] = useState("");
+  const [languages, setLanguages] = useState("");
+  const borders = useTranslateBorders(currentCountry);
 
   useEffect(() => {
     const name = location.pathname.slice(1);
@@ -34,12 +39,27 @@ const DetailPage = ({ error }) => {
     }
   }, [location]);
 
+  useEffect(() => {
+    let currencies = "";
+    currentCountry?.currencies?.forEach((c) => (currencies += c.name + ", "));
+    setCurrencies(trimString(currencies));
+  }, [currentCountry]);
+
+  useEffect(() => {
+    let languages = "";
+    currentCountry?.languages?.forEach((l) => (languages += l.name + ", "));
+    setLanguages(trimString(languages));
+  }, [currentCountry]);
+
   return (
     <Container>
       <DetailContent
         country={currentCountry}
         error={error}
         setCurrentCountry={setCurrentCountry}
+        currencies={currencies}
+        languages={languages}
+        borders={borders}
       />
     </Container>
   );
