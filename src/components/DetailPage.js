@@ -9,6 +9,7 @@ import DetailContent from "./DetailContent";
 const Container = styled.div`
   padding-left: ${(props) => props.theme.xl.padding};
   padding-right: ${(props) => props.theme.xl.padding};
+  padding-bottom: ${(props) => props.theme.xl.padding};
   padding-top: 2.8rem;  
   color: ${(props) => props.theme.textColor} !important; 
   }
@@ -16,6 +17,7 @@ const Container = styled.div`
   @media (max-width: 630px) {
     padding-left: ${(props) => props.theme.s.padding};
     padding-right: ${(props) => props.theme.s.padding};
+    padding-bottom: ${(props) => props.theme.s.padding};
   }
 `;
 
@@ -53,7 +55,10 @@ const DetailPage = ({ error }) => {
   }, [currentCountry]);
 
   useEffect(() => {
-    setLatlng(currentCountry?.latlng);
+    console.log(currentCountry)
+    currentCountry?.latlng !== []
+      ? setLatlng(currentCountry?.latlng)
+      : setLatlng([1, 1]);
   }, [currentCountry]);
 
   return (
