@@ -27,6 +27,7 @@ const DetailPage = ({ error }) => {
   );
   const [currencies, setCurrencies] = useState("");
   const [languages, setLanguages] = useState("");
+  const [latlng, setLatlng] = useState();
   const borders = useTranslateBorders(currentCountry);
 
   useEffect(() => {
@@ -51,6 +52,10 @@ const DetailPage = ({ error }) => {
     setLanguages(trimString(languages));
   }, [currentCountry]);
 
+  useEffect(() => {
+    setLatlng(currentCountry?.latlng);
+  }, [currentCountry]);
+
   return (
     <Container>
       <DetailContent
@@ -60,6 +65,7 @@ const DetailPage = ({ error }) => {
         currencies={currencies}
         languages={languages}
         borders={borders}
+        latlng={latlng}
       />
     </Container>
   );

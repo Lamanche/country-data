@@ -5,6 +5,7 @@ import Loading from "./Loading";
 import BorderCountries from "./BorderCountries";
 import { useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
+import Map from "./Map";
 
 const BackBtn = styled(Button)`
   margin-bottom: 2.8rem !important;
@@ -17,6 +18,8 @@ const BackBtn = styled(Button)`
     margin-bottom: 4rem !important;
   }
 `;
+
+const Wrapper = styled.div``;
 
 const DataWrapper = styled.div`
   display: flex;
@@ -89,7 +92,14 @@ const DetailData = styled.span`
   font-weight: 300;
 `;
 
-const DetailContent = ({ country, error, currencies, borders, languages }) => {
+const DetailContent = ({
+  country,
+  error,
+  currencies,
+  borders,
+  languages,
+  latlng,
+}) => {
   const history = useHistory();
 
   const goBack = () => {
@@ -107,46 +117,50 @@ const DetailContent = ({ country, error, currencies, borders, languages }) => {
       ) : !country ? (
         <Loading />
       ) : (
-        <DataWrapper>
-          <Flag src={country.flag} alt={"flag"}></Flag>
-          <DetailWrapper>
-            <div>
-              <Name>{country?.name}</Name>
-              <Container>
-                <DetailLeft>
-                  <Detail>
-                    Native Name: <DetailData>{country?.nativeName}</DetailData>
-                  </Detail>
-                  <Detail>
-                    Population: <DetailData>{country?.population}</DetailData>
-                  </Detail>
-                  <Detail>
-                    Region: <DetailData>{country?.region}</DetailData>
-                  </Detail>
-                  <Detail>
-                    Sub Region: <DetailData>{country?.subregion}</DetailData>
-                  </Detail>
-                  <Detail>
-                    Capital: <DetailData>{country?.capital}</DetailData>
-                  </Detail>
-                </DetailLeft>
-                <DetailRight>
-                  <Detail>
-                    Top Level Domain:{" "}
-                    <DetailData>{country?.topLevelDomain}</DetailData>
-                  </Detail>
-                  <Detail>
-                    Currencies: <DetailData>{currencies}</DetailData>
-                  </Detail>
-                  <Detail>
-                    Languages: <DetailData>{languages}</DetailData>
-                  </Detail>
-                </DetailRight>
-              </Container>
-            </div>
-            <BorderCountries borders={borders} />
-          </DetailWrapper>
-        </DataWrapper>
+        <Wrapper>
+          <DataWrapper>
+            <Flag src={country.flag} alt={"flag"}></Flag>
+            <DetailWrapper>
+              <div>
+                <Name>{country?.name}</Name>
+                <Container>
+                  <DetailLeft>
+                    <Detail>
+                      Native Name:{" "}
+                      <DetailData>{country?.nativeName}</DetailData>
+                    </Detail>
+                    <Detail>
+                      Population: <DetailData>{country?.population}</DetailData>
+                    </Detail>
+                    <Detail>
+                      Region: <DetailData>{country?.region}</DetailData>
+                    </Detail>
+                    <Detail>
+                      Sub Region: <DetailData>{country?.subregion}</DetailData>
+                    </Detail>
+                    <Detail>
+                      Capital: <DetailData>{country?.capital}</DetailData>
+                    </Detail>
+                  </DetailLeft>
+                  <DetailRight>
+                    <Detail>
+                      Top Level Domain:{" "}
+                      <DetailData>{country?.topLevelDomain}</DetailData>
+                    </Detail>
+                    <Detail>
+                      Currencies: <DetailData>{currencies}</DetailData>
+                    </Detail>
+                    <Detail>
+                      Languages: <DetailData>{languages}</DetailData>
+                    </Detail>
+                  </DetailRight>
+                </Container>
+              </div>
+              <BorderCountries borders={borders} />
+            </DetailWrapper>
+          </DataWrapper>
+          {latlng ? <Map latlng={latlng} /> : <Loading />}
+        </Wrapper>
       )}
     </>
   );
