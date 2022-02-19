@@ -28,8 +28,8 @@ const GridContainer = styled(motion.div)`
   gap: 4em;
 
   @media (max-width: 425px) {
-    grid-template-columns: 1fr;
-    grid-auto-rows: 51em;
+    grid-template-columns: 80%;
+    grid-auto-rows: 45em;
   }
 `;
 
