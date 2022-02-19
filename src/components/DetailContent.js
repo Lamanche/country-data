@@ -48,6 +48,7 @@ const FlagContainer = styled.div`
     width: 100%;
     height: 25em;
     margin-right: 0;
+    margin-bottom: 4em;
   }
 `;
 

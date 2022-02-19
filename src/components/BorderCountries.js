@@ -42,18 +42,18 @@ const BorderButton = styled(Button)`
   font-size: 1em !important;
   margin-right: 0.5em !important;
   margin-left: 0.5em !important;
-  margin-bottom: .5em !important;
+  margin-bottom: 0.5em !important;
   padding-left: 1.9em !important;
   padding-right: 1.9em !important;
   background-color: ${(props) => props.theme.backgroundElements} !important;
   color: ${(props) => props.theme.textColor} !important;
 
   @media (max-width: 768px) {
-    font-size: .8em !important;
+    font-size: 0.8em !important;
   }
 
   @media (max-width: 550px) {
-    font-size: .8em !important;
+    font-size: 0.8em !important;
   }
 `;
 
@@ -79,16 +79,17 @@ const BorderCountries = ({ borders }) => {
     <Container>
       <Detail>Border Countries: </Detail>
       <BorderWrapper>
-        {borders &&
-          borders.map((border) => (
-            <BorderButton
-              key={border}
-              variant='contained'
-              onClick={toDetailPage}
-            >
-              {border}
-            </BorderButton>
-          ))}
+        {borders && borders.length !== 0
+          ? borders.map((border) => (
+              <BorderButton
+                key={border}
+                variant='contained'
+                onClick={toDetailPage}
+              >
+                {border}
+              </BorderButton>
+            ))
+          : "None"}
       </BorderWrapper>
     </Container>
   );
