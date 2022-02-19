@@ -10,14 +10,23 @@ import Map from "./Map";
 const TopWrapper = styled.div``;
 
 const BackBtn = styled(Button)`
+  font-size: 1em !important;
   margin-bottom: 2.8em !important;
-  padding-left: 1.9em !important;
+  padding-left: 1.4em !important;
   padding-right: 1.9em !important;
   background-color: ${(props) => props.theme.backgroundElements} !important;
   color: ${(props) => props.theme.textColor} !important;
 
   @media (max-width: 425px) {
     margin-bottom: 4em !important;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1em !important;
+  }
+
+  @media (max-width: 550px) {
+    font-size: 1.5em !important;
   }
 `;
 
@@ -66,7 +75,6 @@ const DetailWrapper = styled.div`
 
 const Container = styled.div`
   display: flex;
-  
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -143,7 +151,7 @@ const DetailContent = ({
   return (
     <TopWrapper>
       <BackBtn onClick={goBack} variant='contained'>
-        <ArrowBackIcon />
+        <ArrowBackIcon style={{fontSize: '1.2em', marginRight: '.5em'}}/>
         Back
       </BackBtn>
       {error === true ? (
