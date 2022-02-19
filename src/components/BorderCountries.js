@@ -12,6 +12,14 @@ const Container = styled.div`
     flex-direction: column;
     align-items: flex-start;
   }
+
+  @media (max-width: 768px) {
+    font-size: 1.2em;
+  }
+
+  @media (max-width: 550px) {
+    font-size: 1.8em;
+  }
 `;
 
 const BorderWrapper = styled.div`
@@ -21,23 +29,32 @@ const BorderWrapper = styled.div`
 `;
 
 const Detail = styled.p`
-  margin: 0 0.5rem 0.1rem 1rem;
+  margin: 0 0.5em 0.1rem 0;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1em;
 
   @media (max-width: 630px) {
-    margin-bottom: 2rem;
+    margin-bottom: 2em;
   }
 `;
 
 const BorderButton = styled(Button)`
-  margin-right: 0.5rem !important;
-  margin-left: 0.5rem !important;
-  margin-bottom: 1rem !important;
-  padding-left: 1.9rem !important;
-  padding-right: 1.9rem !important;
+  font-size: 1em !important;
+  margin-right: 0.5em !important;
+  margin-left: 0.5em !important;
+  margin-bottom: .5em !important;
+  padding-left: 1.9em !important;
+  padding-right: 1.9em !important;
   background-color: ${(props) => props.theme.backgroundElements} !important;
   color: ${(props) => props.theme.textColor} !important;
+
+  @media (max-width: 768px) {
+    font-size: .8em !important;
+  }
+
+  @media (max-width: 550px) {
+    font-size: .8em !important;
+  }
 `;
 
 const BorderCountries = ({ borders }) => {
@@ -47,8 +64,14 @@ const BorderCountries = ({ borders }) => {
 
   const toDetailPage = (e) => {
     const code = e.target.textContent;
-    const result = countries.find((country) => country.name === code);
-    history.push(result.name);
+
+    let result;
+    // eslint-disable-next-line array-callback-return
+    countries.find((country) => {
+      if (country.name.common === code) result = country;
+    });
+
+    history.push(result.name.common);
     setCurrentCountry(result);
   };
 

@@ -3,11 +3,9 @@ import styled from "styled-components";
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { CurrentCountryContext } from "./CountriesContext";
+import { motion } from "framer-motion";
 
 const Country = styled(Card)`
-  width: 15rem;
-  height: 19rem;
-  margin: 0 0.2rem 2.5rem 0.2rem;
   background-color: ${(props) => props.theme.backgroundElements} !important;
   color: ${(props) => props.theme.textColor} !important;
   &:hover {
@@ -15,8 +13,7 @@ const Country = styled(Card)`
   }
 
   @media (max-width: 425px) {
-    width: 18rem;
-  height: 22rem;
+    font-size: 2.3em;
   }
 `;
 
@@ -26,44 +23,59 @@ const Flag = styled.img`
   border: none;
 `;
 
+const InfoContainer = styled.div`
+  padding: 0.75em 1.5em;
+`;
+
 const Name = styled.h1`
-  margin-left: 1rem;
-  font-size: 1.05rem;
+  margin-bottom: 0.75em;
+  font-size: 1.05em;
   font-weight: 800;
 `;
 
 const Detail = styled.p`
-  margin: 0 0 0.1rem 1rem;
+  margin-bottom: 0.5em;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.9em;
 `;
 
 const DetailData = styled.span`
   font-weight: 300;
 `;
 
-const CountryCard = ({ country }) => {
+const CountryCard = ({ country, setScrollPosition }) => {
   const { setCurrentCountry } = useContext(CurrentCountryContext);
   const history = useHistory();
 
   const toDetailPage = () => {
     setCurrentCountry(country);
-    history.push(country.name);
+    setScrollPosition(window.pageYOffset);
+    history.push(country.name.common);
   };
 
   return (
-    <Country onClick={toDetailPage}>
-      <Flag src={country.flag} alt={"flag"}></Flag>
-      <Name>{country.name}</Name>
-      <Detail>
-        Population: <DetailData>{country.population}</DetailData>
-      </Detail>
-      <Detail>
-        Region: <DetailData>{country.region}</DetailData>
-      </Detail>
-      <Detail>
-        Capital: <DetailData>{country.capital}</DetailData>
-      </Detail>
+    <Country
+      component={motion.div}
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+      layout
+      onClick={toDetailPage}
+    >
+      <Flag src={country.flags.png} alt={"flag"}></Flag>
+      <InfoContainer>
+        <Name>{country.name.common}</Name>
+        <Detail>
+          Population:{" "}
+          <DetailData>{country.population.toLocaleString()}</DetailData>
+        </Detail>
+        <Detail>
+          Region: <DetailData>{country.region}</DetailData>
+        </Detail>
+        <Detail>
+          Capital: <DetailData>{country.capital}</DetailData>
+        </Detail>
+      </InfoContainer>
     </Country>
   );
 };

@@ -4,9 +4,9 @@ import { AppBar } from "@material-ui/core";
 import ThemeChanger from "./ThemeChanger";
 
 const Bar = styled(AppBar)`
-  height: 5rem;
-  padding-left: ${(props) => props.theme.xl.padding};
-  padding-right: ${(props) => props.theme.xl.padding};
+  height: 5em;
+  padding-left: 4em;
+  padding-right: 4em;
   display: flex;
   flex-direction: row !important;
   justify-content: space-between;
@@ -19,16 +19,18 @@ const Bar = styled(AppBar)`
   @media (max-width: 630px) {
     padding-left: ${(props) => props.theme.s.padding};
     padding-right: ${(props) => props.theme.s.padding};
+
+    font-size: 1.5em;
+  }
+
+  @media (max-width: 425px) {
+    height: 6em;
   }
 `;
 
 const Headline = styled.h1`
-  font-size: 1.5rem;
+  font-size: 1.5em;
   font-weight: 800;
-
-  @media (max-width: 630px) {
-    font-size: 1rem;
-  }
 `;
 
 const Header = ({ currentTheme, changeTheme }) => {

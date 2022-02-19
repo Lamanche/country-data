@@ -10,7 +10,7 @@ const Container = styled.div`
   padding-left: ${(props) => props.theme.xl.padding};
   padding-right: ${(props) => props.theme.xl.padding};
   padding-bottom: ${(props) => props.theme.xl.padding};
-  padding-top: 2.8rem;  
+  padding-top: 2.8em;  
   color: ${(props) => props.theme.textColor} !important; 
   }
 
@@ -28,37 +28,58 @@ const DetailPage = ({ error }) => {
     CurrentCountryContext
   );
   const [currencies, setCurrencies] = useState("");
+  const [population, setPopulation] = useState("");
   const [languages, setLanguages] = useState("");
   const [latlng, setLatlng] = useState();
+  const [tld, setTld] = useState("");
   const borders = useTranslateBorders(currentCountry);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     const name = location.pathname.slice(1);
     if (currentCountry.name !== name) {
       const result = countries.find(
-        (country) => country.name.toLowerCase() === name.toLowerCase()
+        (country) => country.name.common.toLowerCase() === name.toLowerCase()
       );
       setCurrentCountry(result);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   useEffect(() => {
     let currencies = "";
-    currentCountry?.currencies?.forEach((c) => (currencies += c.name + ", "));
+    currentCountry?.currencies &&
+      Object.entries(currentCountry?.currencies).forEach(
+        (c) => (currencies += c[1].name + ", ")
+      );
     setCurrencies(trimString(currencies));
   }, [currentCountry]);
 
   useEffect(() => {
     let languages = "";
-    currentCountry?.languages?.forEach((l) => (languages += l.name + ", "));
+    currentCountry?.languages &&
+      Object.entries(currentCountry?.languages).forEach(
+        (l) => (languages += l[1] + ", ")
+      );
     setLanguages(trimString(languages));
   }, [currentCountry]);
 
   useEffect(() => {
-    console.log(currentCountry)
+    currentCountry?.tld && setTld(currentCountry.tld[0]);
+  }, [currentCountry]);
+
+  useEffect(() => {
     currentCountry?.latlng !== []
       ? setLatlng(currentCountry?.latlng)
       : setLatlng([1, 1]);
+  }, [currentCountry]);
+
+  useEffect(() => {
+    currentCountry?.population &&
+      setPopulation(currentCountry?.population.toLocaleString());
   }, [currentCountry]);
 
   return (
@@ -69,6 +90,8 @@ const DetailPage = ({ error }) => {
         setCurrentCountry={setCurrentCountry}
         currencies={currencies}
         languages={languages}
+        population={population}
+        tld={tld}
         borders={borders}
         latlng={latlng}
       />

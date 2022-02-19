@@ -12,10 +12,10 @@ const useTranslateBorders = (country) => {
   country &&
     currentCountry?.borders?.map((i) =>
       countries.find((country) => {
-        country.alpha3Code === i && border.push(country.name);
+        return country.cca3 === i && border.push(country.name.common);
       })
     );
-
+  
   return border;
 };
 

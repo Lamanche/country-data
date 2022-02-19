@@ -3,10 +3,10 @@ export const lightTheme = {
   textColor: "hsl(200, 15%, 8%)",
   backgroundElements: "hsl(0, 00%, 100%)",
   xl: {
-    padding: "4rem",
+    padding: "4em",
   },
   s: {
-    padding: "2rem",
+    padding: "2em",
   },
 };
 
@@ -15,9 +15,9 @@ export const darkTheme = {
   textColor: "hsl(0, 0%, 100%)",
   backgroundElements: "hsl(209, 23%, 22%)",
   xl: {
-    padding: "4rem",
+    padding: "4em",
   },
   s: {
-    padding: "2rem",
+    padding: "2em",
   },
 };

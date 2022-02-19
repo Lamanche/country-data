@@ -1,17 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import styled, { ThemeProvider } from "styled-components";
+import { useEffect, useState } from "react";
+import { Route, Switch, useLocation } from "react-router-dom";
+import axios from "axios";
 import Loading from "./components/Loading";
 import Header from "./components/Header";
-import useToggleTheme from "./functions/useToggleTheme";
-import { useEffect, useState } from "react";
-import Main from "./components/Main";
-import DetailPage from "./components/DetailPage";
-import axios from "axios";
-import { Route, Switch, useLocation } from "react-router-dom";
 import {
   CountriesContext,
   CurrentCountryContext,
 } from "./components/CountriesContext";
+import useToggleTheme from "./functions/useToggleTheme";
+import Main from "./components/Main";
+import DetailPage from "./components/DetailPage";
 
 const Container = styled.div`
   width: 100%;
@@ -24,17 +24,36 @@ function App() {
   const [countries, setCountries] = useState([]);
   const [currentCountry, setCurrentCountry] = useState({});
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [region, setRegion] = useState("");
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   const location = useLocation();
 
   const getCountries = async () => {
     try {
-      const data = await axios("https://restcountries.eu/rest/v2/all");
-      setCountries(data.data);
+      const data = await axios("https://restcountries.com/v3.1/all");
+
+      const sortedData = data.data.sort((a, b) => {
+        const nameA = a.name.common.toUpperCase();
+        const nameB = b.name.common.toUpperCase();
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        return 0;
+      });
+
+      setCountries(sortedData);
+      setLoading(false);
       if (location.pathname.length > 1) {
         const countryName = location.pathname.slice(1);
-        const result = data.data.find(
-          (country) => country.name.toLowerCase() === countryName.toLowerCase()
+        const result = sortedData.find(
+          (country) =>
+            country.name.common.toLowerCase() === countryName.toLowerCase()
         );
         if (!result) {
           setError(true);
@@ -43,12 +62,12 @@ function App() {
         }
       }
     } catch (error) {
-      console.log(error);
       setError(true);
     }
   };
 
   useEffect(() => {
+    setLoading(true);
     getCountries();
   }, []);
 
@@ -62,7 +81,18 @@ function App() {
             <Header currentTheme={theme} changeTheme={toggleTheme} />
             <Switch>
               <Route exact path='/'>
-                {!countries ? <Loading /> : <Main />}
+                {loading ? (
+                  <Loading />
+                ) : (
+                  <Main
+                    region={region}
+                    searchTerm={searchTerm}
+                    setRegion={setRegion}
+                    setSearchTerm={setSearchTerm}
+                    scrollPosition={scrollPosition}
+                    setScrollPosition={setScrollPosition}
+                  />
+                )}
               </Route>
               <Route path='/:country'>
                 <DetailPage error={error} />

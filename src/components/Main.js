@@ -1,59 +1,79 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import CountryCard from "./CountryCard";
 import styled from "styled-components";
 import SearchCountries from "./SearchCountries";
 import { CountriesContext } from "./CountriesContext";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Container = styled.div`
   padding-left: ${(props) => props.theme.xl.padding};
   padding-right: ${(props) => props.theme.xl.padding};
-  padding-top: 2.8rem;
+  padding-top: 3em;
+  padding-bottom: 3em;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;  
-  }
-
-  @media (max-width: 768px) {    
-    padding-top: 2rem;
-    justify-content: space-around;
-  }
+  flex-direction: column;
 
   @media (max-width: 425px) {
     padding-left: ${(props) => props.theme.s.padding};
     padding-right: ${(props) => props.theme.s.padding};
-    padding-top: 2rem;
-    justify-content: center;
+    padding-top: 2em;
   }
 `;
 
-/*&:after {
-    content: "";
-    width: 15rem;
-    height: 19rem;
-    margin: 0 0.2rem 2.5rem 0.2rem;
-    flex-grow: 0;*/
+const GridContainer = styled(motion.div)`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 15em);
+  grid-auto-rows: 21em;
+  justify-content: center;
+  gap: 4em;
 
-const Main = () => {
+  @media (max-width: 425px) {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 51em;
+  }
+`;
+
+const Main = ({
+  region,
+  setRegion,
+  searchTerm,
+  setSearchTerm,
+  scrollPosition,
+  setScrollPosition,
+}) => {
   const countries = useContext(CountriesContext);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [region, setRegion] = useState("");
+
+  useEffect(() => {
+    window.scrollTo(0, scrollPosition);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container>
       <SearchCountries
-        searchTerm={setSearchTerm}
+        setSearchTerm={setSearchTerm}
+        searchTerm={searchTerm}
         region={region}
         setRegion={setRegion}
       />
-      {countries
-        .filter(
-          (country) =>
-            country.name.toLowerCase().startsWith(searchTerm) &&
-            country.region.includes(region)
-        )
-        .map((country) => (
-          <CountryCard key={country.numericCode} country={country} />
-        ))}
+      <GridContainer layout>
+        <AnimatePresence>
+          {countries
+            .filter(
+              (country) =>
+                country.name.common.toLowerCase().startsWith(searchTerm) &&
+                country.region.includes(region)
+            )
+            .map((country) => (
+              <CountryCard
+                key={country.name.common}
+                country={country}
+                setScrollPosition={setScrollPosition}
+              />
+            ))}
+        </AnimatePresence>
+      </GridContainer>
     </Container>
   );
 };

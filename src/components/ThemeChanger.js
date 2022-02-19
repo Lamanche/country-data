@@ -11,8 +11,9 @@ const ThemeButton = styled.button`
   border: none;
   color: ${(props) => props.theme.textColor};
   background-color: ${(props) => props.theme.backgroundElements};
+  font-size: inherit;
   &:hover {
-    transform: scale(1.1);
+    cursor: pointer;
   }
 `;
 
