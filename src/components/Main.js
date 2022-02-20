@@ -3,7 +3,6 @@ import CountryCard from "./CountryCard";
 import styled from "styled-components";
 import SearchCountries from "./SearchCountries";
 import { CountriesContext } from "./CountriesContext";
-import { AnimatePresence, motion } from "framer-motion";
 
 const Container = styled.div`
   padding-left: ${(props) => props.theme.xl.padding};
@@ -20,7 +19,7 @@ const Container = styled.div`
   }
 `;
 
-const GridContainer = styled(motion.div)`
+const GridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, 15em);
   grid-auto-rows: 21em;
@@ -57,22 +56,20 @@ const Main = ({
         region={region}
         setRegion={setRegion}
       />
-      <GridContainer layout>
-        <AnimatePresence>
-          {countries
-            .filter(
-              (country) =>
-                country.name.common.toLowerCase().startsWith(searchTerm) &&
-                country.region.includes(region)
-            )
-            .map((country) => (
-              <CountryCard
-                key={country.name.common}
-                country={country}
-                setScrollPosition={setScrollPosition}
-              />
-            ))}
-        </AnimatePresence>
+      <GridContainer>
+        {countries
+          .filter(
+            (country) =>
+              country.name.common.toLowerCase().startsWith(searchTerm) &&
+              country.region.includes(region)
+          )
+          .map((country) => (
+            <CountryCard
+              key={country.name.common}
+              country={country}
+              setScrollPosition={setScrollPosition}
+            />
+          ))}
       </GridContainer>
     </Container>
   );

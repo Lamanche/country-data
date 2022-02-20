@@ -3,7 +3,6 @@ import styled from "styled-components";
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { CurrentCountryContext } from "./CountriesContext";
-import { motion } from "framer-motion";
 
 const Country = styled(Card)`
   background-color: ${(props) => props.theme.backgroundElements} !important;
@@ -54,14 +53,7 @@ const CountryCard = ({ country, setScrollPosition }) => {
   };
 
   return (
-    <Country
-      component={motion.div}
-      animate={{ opacity: 1 }}
-      initial={{ opacity: 0 }}
-      exit={{ opacity: 0 }}
-      layout
-      onClick={toDetailPage}
-    >
+    <Country onClick={toDetailPage}>
       <Flag src={country.flags.png} alt={"flag"}></Flag>
       <InfoContainer>
         <Name>{country.name.common}</Name>
